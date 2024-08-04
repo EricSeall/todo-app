@@ -1,8 +1,10 @@
 import TodoItem from "./TodoItem.tsx";
 
 interface Props {
-  items: string[];
-  handleCheck: Function;
+  items: object[];
+  handleCheckItem: Function;
+  handleDeleteItem: Function;
+  handleClearList: Function;
 }
 
 export default function ItemList(props: Props) {
@@ -12,9 +14,11 @@ export default function ItemList(props: Props) {
         return (
           <TodoItem
             key={itemIndex}
+            id={itemIndex}
             item={item}
-            checked={false}
-            handleCheck={props.handleCheck}
+            handleCheckItem={props.handleCheckItem}
+            handleDeleteItem={props.handleDeleteItem}
+            handleClearList={props.handleClearList}
           />
         );
       })}
@@ -23,7 +27,9 @@ export default function ItemList(props: Props) {
           {props.items.length} item{props.items.length === 1 ? "" : "s"} left
         </p>
         <p>
-          <a>Clear Completed</a>
+          <a className="clear-button" onClick={() => props.handleClearList()}>
+            Clear Completed
+          </a>
         </p>
       </div>
     </div>

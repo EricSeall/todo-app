@@ -5,8 +5,8 @@ import "./App.css";
 function App() {
   const [items, setItems] = useState([]);
 
-  function handleAddItem(newItem: string) {
-    const newList = [...items, newItem];
+  function handleAddItem(itemText: string) {
+    const newList = [...items, { text: itemText, checked: false }];
     setItems(newList);
   }
 
@@ -14,9 +14,21 @@ function App() {
 
   function handleEditItem() {}
 
-  function handleCheck() {
+  function handleCheckItem(id: number) {
     console.log("I dun been clicked");
+    let list = items.map((item) => item);
+    list[id].checked = !list[id].checked;
+    setItems(list);
   }
+
+  function handleClearList() {
+    setItems(items.filter((item) => item.checked === false));
+  }
+
+  function handleInput() {
+    handleAddItem(e.currentTarget.value);
+  }
+
   return (
     <>
       <img className="bg-mobile-dark" src="./images/bg-mobile-dark.jpg" />
@@ -38,14 +50,19 @@ function App() {
           ></input>
         </div>
 
-        <ItemList items={items} handleCheck={handleCheck} />
+        <ItemList
+          items={items}
+          handleCheckItem={handleCheckItem}
+          handleDeleteItem={handleDeleteItem}
+          handleClearList={handleClearList}
+        />
         <div className="filtering-buttons">
           <p className="filter-button">All</p>
           <p className="filter-button">Active</p>
           <p className="filter-button">Completed</p>
         </div>
       </div>
-      Drag and drop to reorder list
+      <div className="instructions">Drag and drop to reorder list</div>
     </>
   );
 }

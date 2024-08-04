@@ -1,32 +1,38 @@
 interface Props {
-  item: string;
-  checked: boolean;
-  handleCheck: Function;
+  item: object;
+  id: number;
+  handleCheckItem: Function;
+  handleDeleteItem: Function;
+  handleClearList: Function;
 }
 
 export default function TodoItem(props: Props) {
   return (
     <>
       <div className="card">
-        {props.checked ? (
+        {props.item.checked ? (
           <div
             className="check-button-checked"
-            onClick={() => props.handleCheck()}
+            onClick={() => props.handleCheckItem(props.id)}
           >
             <img className="checkmark" src="./images/icon-check.svg" />
           </div>
         ) : (
           <div
             className="check-button-unchecked"
-            onClick={() => props.handleCheck()}
+            onClick={() => props.handleCheckItem(props.id)}
           ></div>
         )}
         <input
-          className="item-input"
+          className={props.item.checked ? "item-input completed" : "item-input"}
           type="text"
-          defaultValue={props.item}
+          defaultValue={props.item.text}
         ></input>
-        <img className="cross" src="./images/icon-cross.svg" />
+        <img
+          className="cross"
+          src="./images/icon-cross.svg"
+          onClick={() => props.handleDeleteItem()}
+        />
       </div>
     </>
   );
