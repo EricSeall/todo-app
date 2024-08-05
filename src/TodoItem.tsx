@@ -4,6 +4,7 @@ interface Props {
   handleCheckItem: Function;
   handleDeleteItem: Function;
   handleClearList: Function;
+  handleEditItem: Function;
 }
 
 export default function TodoItem(props: Props) {
@@ -27,6 +28,11 @@ export default function TodoItem(props: Props) {
           className={props.item.checked ? "item-input completed" : "item-input"}
           type="text"
           defaultValue={props.item.text}
+          onKeyDown={(e) =>
+            e.key === "Enter"
+              ? props.handleEditItem(props.id, e.currentTarget.value)
+              : null
+          }
         ></input>
         <img
           className="cross"

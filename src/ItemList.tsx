@@ -5,12 +5,24 @@ interface Props {
   handleCheckItem: Function;
   handleDeleteItem: Function;
   handleClearList: Function;
+  handleEditItem: Function;
+  filter: string;
 }
 
 export default function ItemList(props: Props) {
+  const visibleItems = props.items.filter((item) => {
+    if (props.filter === "All") {
+      return item === item;
+    } else if (props.filter === "Active") {
+      return item.checked === false;
+    } else if (props.filter === "Completed") {
+      return item.checked === true;
+    }
+  });
+
   return (
     <div className="item-list">
-      {props.items.map((item, itemIndex) => {
+      {visibleItems.map((item, itemIndex) => {
         return (
           <TodoItem
             key={itemIndex}
@@ -19,6 +31,7 @@ export default function ItemList(props: Props) {
             handleCheckItem={props.handleCheckItem}
             handleDeleteItem={props.handleDeleteItem}
             handleClearList={props.handleClearList}
+            handleEditItem={props.handleEditItem}
           />
         );
       })}
