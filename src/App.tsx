@@ -1,34 +1,49 @@
 import { useState } from "react";
 import ItemList from "./ItemList.tsx";
 import "./App.css";
-
-interface Item {
-  text: string;
-  checked: boolean;
-}
+import { Item } from "./types.ts";
 
 function App() {
   const [items, setItems] = useState<Item[]>([]);
   const [filter, setFilter] = useState("All");
+  const [totalItems, setTotalItems] = useState(0);
 
   function handleAddItem(itemText: string) {
-    const newList = [...items, { text: itemText, checked: false }];
+    const newList = [
+      ...items,
+      { text: itemText, id: totalItems + 1, checked: false },
+    ];
+    setTotalItems(totalItems + 1);
     setItems(newList);
   }
 
-  function handleDeleteItem() {}
+  function handleDeleteItem(id: number) {
+    console.log("Deleted");
+    let list = items.map((item) => item);
 
-  function handleEditItem(id: number, newText: string) {
+    setItems(list.filter((item) => item.id != id));
+  }
+
+  function handleEditItem(element: HTMLElement, id: number, newText: string) {
     console.log("Edited");
     let list = items.map((item) => item);
-    list[id].text = newText;
+    const activeItem = list.find((item) => item.id === id);
+    if (activeItem) {
+      activeItem.text = newText;
+    }
+    element.blur();
     setItems(list);
   }
 
   function handleCheckItem(id: number) {
     console.log("I dun been clicked");
     let list = items.map((item) => item);
-    list[id].checked = !list[id].checked;
+    const activeItem = list.find((item) => item.id === id);
+    console.log(activeItem);
+    if (activeItem) {
+      activeItem.checked = !activeItem.checked;
+    }
+
     setItems(list);
   }
 
@@ -38,7 +53,10 @@ function App() {
 
   function handleInput(value: string) {
     handleAddItem(value);
-    document.getElementById("input-field").value = "";
+    const inputElement = document.getElementById(
+      "input-field"
+    ) as HTMLInputElement;
+    inputElement.value = "";
   }
 
   function handleFilterChange(newFilter: string) {
@@ -78,19 +96,29 @@ function App() {
         />
         <div className="filtering-buttons">
           <p
-            className="filter-button"
+            className={
+              filter === "All" ? "filter-button active-filter" : "filter-button"
+            }
             onClick={() => handleFilterChange("All")}
           >
             All
           </p>
           <p
-            className="filter-button"
+            className={
+              filter === "Active"
+                ? "filter-button active-filter"
+                : "filter-button"
+            }
             onClick={() => handleFilterChange("Active")}
           >
             Active
           </p>
           <p
-            className="filter-button"
+            className={
+              filter === "Completed"
+                ? "filter-button active-filter"
+                : "filter-button"
+            }
             onClick={() => handleFilterChange("Completed")}
           >
             Completed

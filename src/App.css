@@ -49,6 +49,10 @@
   border-radius: 0.3rem 0.3rem 0 0;
 }
 
+.card:hover > .cross {
+  visibility: visible;
+}
+
 #input-card {
   border-radius: 0.3rem;
   border: none;
@@ -63,6 +67,8 @@
 
   border-radius: 50%;
   border: 0.15rem solid var(--Very-Dark-Grayish-Blue);
+
+  transition-duration: 0.1s;
 }
 
 .check-button-unchecked {
@@ -70,6 +76,16 @@
   height: 1rem;
   border-radius: 50%;
   border: 0.15rem solid var(--Very-Dark-Grayish-Blue);
+
+  transition-duration: 0.1s;
+}
+
+.check-button-checked:hover,
+.check-button-unchecked:hover {
+  cursor: pointer;
+  scale: 1.1;
+
+  border-color: white;
 }
 
 .checkmark {
@@ -80,6 +96,7 @@
 
 .cross {
   width: 1rem;
+  visibility: hidden;
 }
 
 .item-input {
@@ -92,9 +109,21 @@
   flex-grow: 1;
 }
 
+input {
+  caret-color: var(--Bright-Blue);
+}
+
+input:focus {
+  outline: none;
+}
+
 .completed {
   text-decoration: line-through;
   color: var(--Dark-Grayish-Blue);
+}
+
+.clear-button:hover {
+  color: white;
 }
 
 .item-input::placeholder {
@@ -137,6 +166,15 @@
 
 .filter-button {
   margin: 0;
+  color: var(--Dark-Grayish-Blue);
+}
+
+.filter-button:hover {
+  color: white;
+}
+
+.active-filter {
+  color: var(--Bright-Blue);
 }
 
 .items-left {

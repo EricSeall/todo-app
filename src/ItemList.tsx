@@ -1,7 +1,8 @@
 import TodoItem from "./TodoItem.tsx";
+import { Item } from "./types.ts";
 
 interface Props {
-  items: object[];
+  items: Item[];
   handleCheckItem: Function;
   handleDeleteItem: Function;
   handleClearList: Function;
@@ -20,13 +21,27 @@ export default function ItemList(props: Props) {
     }
   });
 
+  function sortItems() {
+    if (props.filter === "Active" || props.filter === "Completed") {
+      return visibleItems;
+    } else {
+      const sortedItems = visibleItems.filter((item) => {
+        return item.checked === false;
+      });
+
+      const completedItems = visibleItems.filter((item) => {
+        return item.checked === true;
+      });
+      return sortedItems.concat(completedItems);
+    }
+  }
+
   return (
     <div className="item-list">
-      {visibleItems.map((item, itemIndex) => {
+      {sortItems().map((item, itemIndex) => {
         return (
           <TodoItem
-            key={itemIndex}
-            id={itemIndex}
+            key={item.id}
             item={item}
             handleCheckItem={props.handleCheckItem}
             handleDeleteItem={props.handleDeleteItem}
