@@ -38,7 +38,7 @@ export default function ItemList(props: Props) {
 
   return (
     <div className="item-list">
-      {sortItems().map((item, itemIndex) => {
+      {sortItems().map((item) => {
         return (
           <TodoItem
             key={item.id}

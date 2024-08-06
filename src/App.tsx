@@ -1,12 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ItemList from "./ItemList.tsx";
 import "./App.css";
 import { Item } from "./types.ts";
 
 function App() {
-  const [items, setItems] = useState<Item[]>([]);
-  const [filter, setFilter] = useState("All");
-  const [totalItems, setTotalItems] = useState(0);
+  const storedItems = window.localStorage.getItem("Eric_Seall_To_Do_Items");
+  const storedFilter = window.localStorage.getItem("Eric_Seall_To_Do_Filter");
+  const storedTotalItems = window.localStorage.getItem(
+    "Eric_Seall_To_Do_Total_Items"
+  );
+  const storedColorMode = window.localStorage.getItem("Eric_Seall_To_Do_Color");
+
+  const [items, setItems] = useState<Item[]>(() =>
+    storedItems ? JSON.parse(storedItems) : []
+  );
+  const [filter, setFilter] = useState(() =>
+    storedFilter ? storedFilter : "All"
+  );
+  const [totalItems, setTotalItems] = useState(() =>
+    storedTotalItems ? JSON.parse(storedTotalItems) : 0
+  );
+  const [colorMode, setColorMode] = useState(() =>
+    storedColorMode ? storedColorMode : "dark"
+  );
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      "Eric_Seall_To_Do_Items",
+      JSON.stringify(items)
+    );
+    window.localStorage.setItem("Eric_Seall_To_Do_Filter", filter);
+    window.localStorage.setItem(
+      "Eric_Seall_To_Do_Total_Items",
+      JSON.stringify(totalItems)
+    );
+    window.localStorage.setItem("Eric_Seall_To_Do_Color", colorMode);
+    console.log("logged");
+  });
+
+  document.querySelector("body")?.setAttribute("data-theme", colorMode);
+
+  function handleToggleTheme() {
+    if (colorMode === "dark") {
+      setColorMode("light");
+    } else {
+      setColorMode("dark");
+    }
+  }
 
   function handleAddItem(itemText: string) {
     const newList = [
@@ -65,10 +105,33 @@ function App() {
 
   return (
     <>
-      <img className="bg-mobile-dark" src="./images/bg-mobile-dark.jpg" />
+      <img
+        className="bg-mobile"
+        src={
+          colorMode === "dark"
+            ? "./images/bg-mobile-dark.jpg"
+            : "./images/bg-mobile-light.jpg"
+        }
+      />
+      <img
+        className="bg-desktop"
+        src={
+          colorMode === "dark"
+            ? "./images/bg-desktop-dark.jpg"
+            : "./images/bg-desktop-light.jpg"
+        }
+      />
       <div className="header">
         <p className="title">TODO</p>
-        <img className="color-mode-icon" src="./images/icon-sun.svg" />
+        <img
+          className="color-mode-icon"
+          src={
+            colorMode === "dark"
+              ? "./images/icon-sun.svg"
+              : "./images/icon-moon.svg"
+          }
+          onClick={handleToggleTheme}
+        />
       </div>
       <div className="main-content">
         <div id="input-card" className="card">

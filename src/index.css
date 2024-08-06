@@ -1,3 +1,7 @@
+* {
+  transition: all .1s ease-in-out;
+}
+
 html {
   /* Primary Colors */
   --Bright-Blue: hsl(220, 98%, 61%);
@@ -8,11 +12,11 @@ html {
   );
 
   /* Light Theme Colors */
-  --Very-Light-Gray: hsl(0, 0%, 98%);
+  --Very-Light-Gray: hsl(0, 0%, 93%);
   --Very-Light-Grayish-Blue: hsl(236, 33%, 92%);
-  --Light-Grayish-Blue: hsl(233, 11%, 84%);
-  --Dark-Grayish-Blue: hsl(236, 9%, 61%);
-  --Very-Dark-Grayish-Blue: hsl(235, 19%, 35%);
+  --Light-Grayish-Blue-Light: hsl(233, 11%, 84%);
+  --Dark-Grayish-Blue-Light: hsl(236, 9%, 61%);
+  --Very-Dark-Grayish-Blue-Light: hsl(235, 19%, 35%);
 
   /* Dark Theme Colors */
   --Very-Dark-Blue: hsl(235, 21%, 11%);
@@ -29,9 +33,40 @@ html {
   color: white;
 }
 
+:root {
+  --app-background: var(--Very-Dark-Blue);
+  --card-background: var(--Extra-Dark-Grayish-Blue);
+  --text-primary: var(--Light-Grayish-Blue);
+  --text-secondary: var(--Dark-Grayish-Blue);
+  --selection: var(--Bright-Blue);
+  --borders: var(--Very-Dark-Grayish-Blue);
+  --hover-color: white;
+}
+
+body[data-theme="light"] {
+  --app-background: var(--Very-Light-Gray);
+  --card-background: white;
+  --text-primary: var(--Very-Dark-Grayish-Blue-Light);
+  --text-secondary: var(--Dark-Grayish-Blue-Light);
+  --selection: var(--Bright-Blue);
+  --borders: var(--Light-Grayish-Blue-Light);
+  --hover-color: black;
+}
+
+
 body {
   margin: 0;
   padding: 0;
 
-  background-color: var(--Very-Dark-Blue);
+  background-color: var(--app-background);
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  margin-top: 4rem;
+  color: var(--text-primary);
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }

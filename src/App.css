@@ -1,8 +1,12 @@
-.bg-mobile-dark {
+.bg-mobile, .bg-desktop {
   position: fixed;
   z-index: -1;
   top: 0;
   width: 100vw;
+}
+
+.bg-desktop{
+  visibility: hidden;
 }
 
 .header {
@@ -11,7 +15,9 @@
   align-items: center;
 
   padding: 1rem;
+  margin: 0 auto;
   margin-top: 1.5rem;
+  max-width: 24rem;
 }
 .title {
   font-size: 1.5rem;
@@ -24,9 +30,14 @@
 .color-mode-icon {
 }
 
+
+
 .main-content {
   padding: 1rem;
   font-size: 0.8rem;
+  margin: 0 auto;
+  max-width: 24rem;
+  transition: all .1s ease-in-out;
 }
 
 .card {
@@ -39,10 +50,10 @@
   font-family: Josefin sans;
   font-size: 0.8rem;
 
-  background-color: var(--Extra-Dark-Grayish-Blue);
+  background-color: var(--card-background);
   padding: 1rem;
   margin: 0;
-  border-bottom: 0.15rem solid var(--Very-Dark-Grayish-Blue);
+  border-bottom: 0.1rem solid var(--borders);
 }
 
 .card:first-child {
@@ -57,6 +68,7 @@
   border-radius: 0.3rem;
   border: none;
   margin-bottom: 1rem;
+  box-shadow: .25rem .25rem .5rem .25rem rgba(0, 0, 0, 0.153);
 }
 .check-button-checked {
   display: flex;
@@ -66,7 +78,7 @@
   background: var(--Check-Background);
 
   border-radius: 50%;
-  border: 0.15rem solid var(--Very-Dark-Grayish-Blue);
+  border: 0.1rem solid var(--borders);
 
   transition-duration: 0.1s;
 }
@@ -75,7 +87,7 @@
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  border: 0.15rem solid var(--Very-Dark-Grayish-Blue);
+  border: 0.1rem solid var(--borders);
 
   transition-duration: 0.1s;
 }
@@ -85,7 +97,7 @@
   cursor: pointer;
   scale: 1.1;
 
-  border-color: white;
+  border-color: var(--hover-color);
 }
 
 .checkmark {
@@ -101,16 +113,16 @@
 
 .item-input {
   border: none;
-  color: white;
+  color: var(--text-primary);
 
   font-family: Josefin Sans;
   font-weight: 400;
-  background-color: var(--Extra-Dark-Grayish-Blue);
+  background-color: var(--card-background);
   flex-grow: 1;
 }
 
 input {
-  caret-color: var(--Bright-Blue);
+  caret-color: var(--selection);
 }
 
 input:focus {
@@ -119,11 +131,11 @@ input:focus {
 
 .completed {
   text-decoration: line-through;
-  color: var(--Dark-Grayish-Blue);
+  color: var(--text-secondary);
 }
 
 .clear-button:hover {
-  color: white;
+  color: var(--hover-color);
 }
 
 .item-input::placeholder {
@@ -132,6 +144,7 @@ input:focus {
 
 .item-list {
   margin-bottom: 1rem;
+  box-shadow: .25rem .25rem .5rem .25rem rgba(0, 0, 0, 0.153);
 }
 
 .list-footer {
@@ -139,10 +152,10 @@ input:focus {
   justify-content: space-between;
   align-items: center;
   height: 1rem;
-  background-color: var(--Extra-Dark-Grayish-Blue);
+  background-color: var(--card-background);
   padding: 1rem;
   border-radius: 0 0 0.3rem 0.3rem;
-  color: var(--Dark-Grayish-Blue);
+  color: var(--text-secondary);
 }
 
 .list-footer:only-child {
@@ -156,8 +169,9 @@ input:focus {
   gap: 1rem;
   padding: 1rem;
   font-size: 1rem;
-  background-color: var(--Extra-Dark-Grayish-Blue);
+  background-color: var(--card-background);
   margin: 0;
+  box-shadow: .25rem .25rem .5rem .25rem rgba(0, 0, 0, 0.153);
 
   border-radius: 0.3rem;
   border: none;
@@ -166,15 +180,15 @@ input:focus {
 
 .filter-button {
   margin: 0;
-  color: var(--Dark-Grayish-Blue);
+  color: var(--text-secondary);
 }
 
 .filter-button:hover {
-  color: white;
+  color: var(--hover-color);
 }
 
 .active-filter {
-  color: var(--Bright-Blue);
+  color: var(--selection);
 }
 
 .items-left {
@@ -184,5 +198,15 @@ input:focus {
 .instructions {
   text-align: center;
   margin-top: 2rem;
-  color: var(--Dark-Grayish-Blue);
+  color: var(--text-secondary);
+}
+
+@media (min-width: 48rem){
+  .bg-desktop{
+    visibility: visible;
+  }
+
+  .bg-mobile{
+    visibility: hidden;
+  }
 }
